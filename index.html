@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Oráculo do Agora</title>
+  <style>
+    body { background:#0b0b0f; color:#fff; text-align:center; font-family:Arial; padding:40px; }
+    textarea { width:80%; height:80px; border-radius:10px; padding:10px; }
+    button { margin-top:15px; padding:12px 25px; border:none; border-radius:20px; background:purple; color:white; font-size:16px; }
+    #resposta { margin-top:25px; font-style:italic; }
+    small { color:#aaa; }
+  </style>
+</head>
+<body>
+
+<h1>🔮 Oráculo do Agora</h1>
+<p>Escreva sua pergunta.</p>
+
+<textarea id="pergunta" placeholder="Digite aqui..."></textarea><br>
+<button onclick="consultar()">Consultar Oráculo</button>
+
+<div id="resposta"></div>
+
+<br><small>Conteúdo gerado para entretenimento e reflexão.</small>
+
+<script>
+function consultar() {
+  const respostas = [
+    "O caminho se revela quando a dúvida silencia. Observa.",
+    "Nem tudo pede pressa. Às vezes, esperar é sabedoria.",
+    "O que buscas fora começa dentro. Age com intenção.",
+    "O silêncio também responde. O que estás evitando ver?",
+    "Confia no processo. O próximo passo já se mostra."
+  ];
+  const r = respostas[Math.floor(Math.random() * respostas.length)];
+  document.getElementById("resposta").innerText = r;
+}
+</script>
+
+</body>
+</html>
