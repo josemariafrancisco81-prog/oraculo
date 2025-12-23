@@ -1,39 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>Oráculo do Agora</title>
-  <style>
-    body { background:#0b0b0f; color:#fff; text-align:center; font-family:Arial; padding:40px; }
-    textarea { width:80%; height:80px; border-radius:10px; padding:10px; }
-    button { margin-top:15px; padding:12px 25px; border:none; border-radius:20px; background:purple; color:white; font-size:16px; }
-    #resposta { margin-top:25px; font-style:italic; }
-    small { color:#aaa; }
-  </style>
+<meta charset="UTF-8">
+<title>Oráculo do Agora</title>
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #2b0040, #05010a);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.container {
+  width: 90%;
+  max-width: 520px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 0 50px rgba(170,0,255,0.4);
+  text-align: center;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 32px;
+  color: #e9c6ff;
+}
+
+p {
+  color: #ccc;
+}
+
+textarea {
+  width: 100%;
+  height: 90px;
+  border-radius: 14px;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  outline: none;
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 25px;
+  padding: 15px 40px;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(135deg, #a100ff, #ff3da5);
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255,80,255,0.8);
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#resposta {
+  margin-top: 30px;
+  font-style: italic;
+  color: #e0caff;
+}
+
+small {
+  display: block;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #888;
+}
+</style>
 </head>
+
 <body>
 
-<h1>🔮 Oráculo do Agora</h1>
-<p>Escreva sua pergunta.</p>
+<div class="container">
+  <h1>🔮 Oráculo do Agora</h1>
+  <p>Respira fundo. Escreve tua pergunta.</p>
 
-<textarea id="pergunta" placeholder="Digite aqui..."></textarea><br>
-<button onclick="consultar()">Consultar Oráculo</button>
+  <textarea id="pergunta" placeholder="Ex: Devo mudar de rumo agora?"></textarea>
 
-<div id="resposta"></div>
+  <button onclick="consultar()">Consultar Oráculo</button>
 
-<br><small>Conteúdo gerado para entretenimento e reflexão.</small>
+  <div id="resposta"></div>
+
+  <small>Conteúdo gerado para entretenimento e reflexão.</small>
+</div>
 
 <script>
 function consultar() {
   const respostas = [
-    "O caminho se revela quando a dúvida silencia. Observa.",
-    "Nem tudo pede pressa. Às vezes, esperar é sabedoria.",
-    "O que buscas fora começa dentro. Age com intenção.",
-    "O silêncio também responde. O que estás evitando ver?",
-    "Confia no processo. O próximo passo já se mostra."
+    "O caminho começa a clarear quando confias menos no medo e mais em ti. O que já sabes no fundo?",
+    "Nem tudo pede ação imediata. Às vezes, esperar é parte do destino. O que o tempo está a te mostrar?",
+    "O que te inquieta hoje pode ser o sinal da mudança necessária. O que estás a evitar?",
+    "Há forças a teu favor, mas elas exigem coragem. O que te impede de avançar?",
+    "O silêncio revela mais do que o ruído. Que verdade estás pronto para encarar?"
   ];
-  const r = respostas[Math.floor(Math.random() * respostas.length)];
-  document.getElementById("resposta").innerText = r;
+  document.getElementById("resposta").innerText =
+    respostas[Math.floor(Math.random() * respostas.length)];
 }
 </script>
 
