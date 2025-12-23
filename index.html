@@ -14,7 +14,45 @@ body {
   color: #fff;
 }
 
-/* === INTRO === */
+/* ===== FUMAÇA ===== */
+.smoke {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(180,0,255,0.15), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,80,200,0.12), transparent 45%);
+  animation: smokeMove 10s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+@keyframes smokeMove {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+/* ===== PARTÍCULAS ===== */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,200,255,0.8);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  30% { opacity: 1; }
+  to {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
+
+/* ===== INTRO ===== */
 #intro {
   position: fixed;
   inset: 0;
@@ -23,54 +61,69 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: fadeOut 2s ease forwards;
-  animation-delay: 6s;
   z-index: 10;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 8s;
 }
 
 @keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
+  to { opacity: 0; visibility: hidden; }
 }
 
+/* ===== MESTRE ===== */
+.master {
+  width: 180px;
+  height: 260px;
+  background: linear-gradient(to bottom, #111, #000);
+  border-radius: 90px 90px 30px 30px;
+  box-shadow: 0 0 60px rgba(180,0,255,0.5);
+  animation: rise 4s ease forwards;
+}
+
+@keyframes rise {
+  from { transform: translateY(200px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== BOLA ===== */
 .crystal {
-  width: 140px;
-  height: 140px;
+  margin-top: 30px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: radial-gradient(circle at top, #fff, #a100ff, #3b005a);
-  box-shadow: 0 0 60px rgba(180,0,255,0.9);
+  box-shadow: 0 0 70px rgba(180,0,255,1);
   animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
 }
 
+/* ===== TEXTO INTRO ===== */
 .intro-text {
-  margin-top: 30px;
+  margin-top: 25px;
   font-size: 22px;
   opacity: 0;
   animation: appear 2s ease forwards;
-  animation-delay: 2s;
+  animation-delay: 3s;
 }
 
 @keyframes appear {
   to { opacity: 1; }
 }
 
-/* === MAIN APP === */
+/* ===== APP ===== */
 #app {
   opacity: 0;
   animation: showApp 2s ease forwards;
-  animation-delay: 7s;
+  animation-delay: 9s;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 @keyframes showApp {
@@ -80,10 +133,10 @@ body {
 .card {
   width: 90%;
   max-width: 520px;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
   border-radius: 26px;
   padding: 40px 30px;
-  box-shadow: 0 0 50px rgba(170,0,255,0.5);
+  box-shadow: 0 0 60px rgba(170,0,255,0.6);
   text-align: center;
 }
 
@@ -112,7 +165,7 @@ button {
   color: white;
   font-size: 17px;
   cursor: pointer;
-  box-shadow: 0 0 25px rgba(255,80,255,0.8);
+  box-shadow: 0 0 30px rgba(255,80,255,1);
 }
 
 #resposta {
@@ -132,10 +185,24 @@ small {
 
 <body>
 
-<!-- INTRO CINEMÁTICA -->
+<div class="smoke"></div>
+
+<!-- PARTÍCULAS -->
+<script>
+for(let i=0;i<60;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.left=Math.random()*100+'vw';
+  p.style.animationDuration=(6+Math.random()*6)+'s';
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- INTRO -->
 <div id="intro">
+  <div class="master"></div>
   <div class="crystal"></div>
-  <div class="intro-text">O Oráculo desperta…</div>
+  <div class="intro-text">O Mestre desperta…</div>
 </div>
 
 <!-- APP -->
@@ -144,7 +211,7 @@ small {
     <h1>🔮 Oráculo do Agora</h1>
     <p>O mestre observa. Faz tua pergunta.</p>
 
-    <textarea id="pergunta" placeholder="Ex: Devo mudar meu destino?"></textarea>
+    <textarea id="pergunta" placeholder="Ex: Devo seguir este caminho?"></textarea>
 
     <button onclick="consultar()">Consultar Oráculo</button>
 
@@ -157,11 +224,11 @@ small {
 <script>
 function consultar() {
   const respostas = [
-    "O destino não é imposto, é revelado a quem ousa olhar. O que teu coração já decidiu?",
-    "Nem toda verdade surge de imediato. O silêncio é parte da resposta.",
-    "O medo guarda um aviso, mas não deve governar. Onde reside tua coragem?",
-    "O mestre vê caminhos, não obrigações. Qual deles ressoa contigo?",
-    "A mudança já começou dentro de ti. O que falta é aceitação."
+    "O mestre vê muitos caminhos, mas apenas um ressoa contigo. Qual te chama?",
+    "A resposta não se apressa. O silêncio também é um sinal.",
+    "O medo guarda um aviso, não uma prisão. Onde está tua coragem?",
+    "O destino inclina-se àqueles que ousam escutar a si mesmos.",
+    "O agora é o portal. O que estás disposto a deixar para trás?"
   ];
   document.getElementById("resposta").innerText =
     respostas[Math.floor(Math.random() * respostas.length)];
