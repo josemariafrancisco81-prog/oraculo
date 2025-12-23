@@ -7,33 +7,89 @@
 <style>
 body {
   margin: 0;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #2b0040, #05010a);
+  height: 100vh;
+  background: radial-gradient(circle at center, #2a0040, #05010a);
   font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
   color: #fff;
 }
 
-.container {
+/* === INTRO === */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 6s;
+  z-index: 10;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.crystal {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top, #fff, #a100ff, #3b005a);
+  box-shadow: 0 0 60px rgba(180,0,255,0.9);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+.intro-text {
+  margin-top: 30px;
+  font-size: 22px;
+  opacity: 0;
+  animation: appear 2s ease forwards;
+  animation-delay: 2s;
+}
+
+@keyframes appear {
+  to { opacity: 1; }
+}
+
+/* === MAIN APP === */
+#app {
+  opacity: 0;
+  animation: showApp 2s ease forwards;
+  animation-delay: 7s;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes showApp {
+  to { opacity: 1; }
+}
+
+.card {
   width: 90%;
   max-width: 520px;
   background: rgba(0,0,0,0.6);
-  border-radius: 24px;
+  border-radius: 26px;
   padding: 40px 30px;
-  box-shadow: 0 0 50px rgba(170,0,255,0.4);
+  box-shadow: 0 0 50px rgba(170,0,255,0.5);
   text-align: center;
 }
 
 h1 {
-  margin-top: 0;
   font-size: 32px;
   color: #e9c6ff;
-}
-
-p {
-  color: #ccc;
 }
 
 textarea {
@@ -57,11 +113,6 @@ button {
   font-size: 17px;
   cursor: pointer;
   box-shadow: 0 0 25px rgba(255,80,255,0.8);
-  transition: transform 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
 }
 
 #resposta {
@@ -72,7 +123,7 @@ button:hover {
 
 small {
   display: block;
-  margin-top: 30px;
+  margin-top: 25px;
   font-size: 12px;
   color: #888;
 }
@@ -81,27 +132,36 @@ small {
 
 <body>
 
-<div class="container">
-  <h1>🔮 Oráculo do Agora</h1>
-  <p>Respira fundo. Escreve tua pergunta.</p>
+<!-- INTRO CINEMÁTICA -->
+<div id="intro">
+  <div class="crystal"></div>
+  <div class="intro-text">O Oráculo desperta…</div>
+</div>
 
-  <textarea id="pergunta" placeholder="Ex: Devo mudar de rumo agora?"></textarea>
+<!-- APP -->
+<div id="app">
+  <div class="card">
+    <h1>🔮 Oráculo do Agora</h1>
+    <p>O mestre observa. Faz tua pergunta.</p>
 
-  <button onclick="consultar()">Consultar Oráculo</button>
+    <textarea id="pergunta" placeholder="Ex: Devo mudar meu destino?"></textarea>
 
-  <div id="resposta"></div>
+    <button onclick="consultar()">Consultar Oráculo</button>
 
-  <small>Conteúdo gerado para entretenimento e reflexão.</small>
+    <div id="resposta"></div>
+
+    <small>Conteúdo simbólico para entretenimento e reflexão.</small>
+  </div>
 </div>
 
 <script>
 function consultar() {
   const respostas = [
-    "O caminho começa a clarear quando confias menos no medo e mais em ti. O que já sabes no fundo?",
-    "Nem tudo pede ação imediata. Às vezes, esperar é parte do destino. O que o tempo está a te mostrar?",
-    "O que te inquieta hoje pode ser o sinal da mudança necessária. O que estás a evitar?",
-    "Há forças a teu favor, mas elas exigem coragem. O que te impede de avançar?",
-    "O silêncio revela mais do que o ruído. Que verdade estás pronto para encarar?"
+    "O destino não é imposto, é revelado a quem ousa olhar. O que teu coração já decidiu?",
+    "Nem toda verdade surge de imediato. O silêncio é parte da resposta.",
+    "O medo guarda um aviso, mas não deve governar. Onde reside tua coragem?",
+    "O mestre vê caminhos, não obrigações. Qual deles ressoa contigo?",
+    "A mudança já começou dentro de ti. O que falta é aceitação."
   ];
   document.getElementById("resposta").innerText =
     respostas[Math.floor(Math.random() * respostas.length)];
